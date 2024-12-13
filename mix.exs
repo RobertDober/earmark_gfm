@@ -3,11 +3,11 @@ defmodule EarmarkGfm.Mixfile do
 
   @version "0.0.0"
 
-  @url "https://github.com/robertdober/gearmark"
+  @url "https://github.com/robertdober/gearpark"
 
   @deps [
     {:dialyxir, "~> 1.4.5", only: [:dev]},
-    {:ex_aequo, "~> 0.6.8", only: [:dev]},
+    {:ex_aequo_colors, "~> 0.1.1", only: [:dev]},
     {:excoveralls, "~> 0.18.3", only: [:test]},
     {:floki, "~> 0.36.3", only: [:dev, :test]}
     # {:benchfella, "~> 0.3.0", only: [:dev]},
@@ -15,7 +15,7 @@ defmodule EarmarkGfm.Mixfile do
   ]
 
   @description """
-  Gearmark is a pure-Elixir Markdown Parser.
+  Gearpark is a pure-Elixir Markdown Parser.
 
   As the name implies it is thought as a replacement or logical
   evolutaion of Earmark.
@@ -30,7 +30,7 @@ defmodule EarmarkGfm.Mixfile do
 
   def project do
     [
-      app: :earmark_gfm,
+      app: :gearpark,
       version: @version,
       compilers: [:leex, :yecc] ++ Mix.compilers(),
       elixir: "~> 1.14",
@@ -63,10 +63,6 @@ defmodule EarmarkGfm.Mixfile do
   defp elixirc_paths(:dev), do: ["lib", "dev"]
   defp elixirc_paths(_), do: ["lib"]
 
-  # defp escript_config do
-  #   [main_module: EarmarkGfm.Cli]
-  # end
-
   defp package do
     [
       files: [
@@ -98,8 +94,8 @@ defmodule EarmarkGfm.Mixfile do
       raise "cannot build docs because escript for ex_doc is not installed, make sure to \n#{@prerequisites}"
     end
 
-    args = ["EarmarkGfm", @version, Mix.Project.compile_path()]
-    opts = ~w[--main EarmarkGfm --source-ref v#{@version} --source-url #{@url}]
+    args = ["Gearpark", @version, Mix.Project.compile_path()]
+    opts = ~w[--main Gearpark --source-ref v#{@version} --source-url #{@url}]
 
     Mix.shell().info("Running: #{ex_doc} #{inspect(args ++ opts)}")
     System.cmd(ex_doc, args ++ opts)
