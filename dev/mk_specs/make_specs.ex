@@ -1,5 +1,6 @@
 defmodule Dev.MkSpecs.MakeSpecs do
   alias ExAequoColors.Ui
+  alias Dev.MkSpecs.Example
 
   @moduledoc ~S"""
   Parse  specs.txt into a test script
@@ -7,7 +8,12 @@ defmodule Dev.MkSpecs.MakeSpecs do
 
 
   @expected_example_count 672
+
   def make_specs(spec) do
+    specs = _make_specs(spec)
+    IO.inspect(Enum.at(specs, 0))
+  end
+  defp _make_specs(spec) do
     Ui.info("Starting reading spec file: #{spec}", device: :stderr)
     spec
     |> File.stream!(:line)
@@ -24,6 +30,10 @@ defmodule Dev.MkSpecs.MakeSpecs do
     else
       Ui.warning("#{c} examples found, <bold>#{@expected_example_count} expected$ <cyan>Chek if specs have evolved!", device: :stderr)
     end
+
+    ex_structs = examples
+                 |> Enum.with_index
+                 |> Stream.map(&Example.new/1)
   end
 
   defp partition_list(list, out_f, in_f, result \\ [])
